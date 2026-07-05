@@ -24,6 +24,14 @@ if (app.Environment.IsDevelopment())
         config.DocExpansion = "list";
     });
 }
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+    });
+});
+
 
 /**
  * This is the main entry point for the Todo API application.
@@ -87,4 +95,5 @@ app.MapDelete("/todoitems/{id}", async (int id, TodoDb db) =>
     return Results.NotFound();
 });
 
+app.UseCors();
 app.Run();
